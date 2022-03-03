@@ -1,0 +1,10 @@
+<launch>
+<!-- nodelet manager from image stream -->
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager" />
+  
+  <node pkg="nodelet" type="nodelet" name="image_proc_test" args="load image_proc_tegra/RectifyNodelet camera_nodelet_manager" output="screen">
+    <remap from="camera_info" to="camera_info" />
+    <remap from="image_raw" to="image_raw" />
+    <remap from="image_rect" to="image_rect" />
+  </node>
+</launch>

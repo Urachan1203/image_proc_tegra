@@ -1,11 +1,17 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(image_proc_tegra)
+
+find_package(OpenCV REQUIRED)
+
+if(CUDA_FOUND)
+message("--------")
+message("CUDA Found")
+endif()
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   image_geometry
-  OpenCV
   sensor_msgs
   std_msgs
   roscpp
@@ -14,13 +20,10 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package(
   CATKIN_DEPENDS image_geometry roscpp sensor_msgs
-  DEPENDS OpenCV
-  INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
 )
 
 include_directories(SYSTEM ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
-include_directories(include)
 
 add_library(${PROJECT_NAME}     src/nodelets/rectify.cpp )
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
